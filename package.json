@@ -1,0 +1,407 @@
+{
+	"name": "vscode-3d",
+	"displayName": "three.ws 3D",
+	"description": "Preview GLB and glTF models inside VS Code, try 2,800 library animations or a text-described motion on any rig and bake the result, generate and refine models from a prompt on the free three.ws lane, optimize for the web, diff a model against git, AI quality-check a render, and get diagnostics and completions for <agent-3d> embeds. Powered by three.ws.",
+	"version": "0.2.0",
+	"publisher": "threews",
+	"license": "Apache-2.0",
+	"pricing": "Free",
+	"homepage": "https://nirholas.github.io/vscode-3d/",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/nirholas/vscode-3d.git"
+	},
+	"bugs": {
+		"url": "https://github.com/nirholas/vscode-3d/issues"
+	},
+	"engines": {
+		"vscode": "^1.85.0"
+	},
+	"categories": [
+		"Visualization",
+		"Programming Languages",
+		"Other"
+	],
+	"keywords": [
+		"3d",
+		"glb",
+		"gltf",
+		"three.js",
+		"model viewer",
+		"avatar",
+		"text to 3d",
+		"preview",
+		"three",
+		"webgl",
+		"animation",
+		"retarget",
+		"mixamo",
+		"optimize",
+		"meshopt",
+		"diff",
+		"embed",
+		"ai-agents",
+		"three.ws"
+	],
+	"type": "module",
+	"main": "./dist/extension.cjs",
+	"icon": "media/icon.png",
+	"galleryBanner": {
+		"color": "#0E1116",
+		"theme": "dark"
+	},
+	"activationEvents": [
+		"onLanguage:html",
+		"onLanguage:javascriptreact",
+		"onLanguage:typescriptreact",
+		"onLanguage:vue",
+		"onLanguage:svelte",
+		"onLanguage:astro",
+		"onLanguage:markdown",
+		"onLanguage:php"
+	],
+	"contributes": {
+		"customEditors": [
+			{
+				"viewType": "threews3d.modelViewer",
+				"displayName": "three.ws 3D Viewer",
+				"selector": [
+					{
+						"filenamePattern": "*.glb"
+					},
+					{
+						"filenamePattern": "*.gltf"
+					}
+				],
+				"priority": "default"
+			}
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "threews3d",
+					"title": "three.ws 3D",
+					"icon": "media/cube.svg"
+				}
+			]
+		},
+		"views": {
+			"threews3d": [
+				{
+					"id": "threews3d.models",
+					"name": "Models in workspace",
+					"icon": "media/cube.svg"
+				},
+				{
+					"id": "threews3d.gallery",
+					"name": "Forge gallery",
+					"icon": "media/cube.svg",
+					"visibility": "collapsed"
+				}
+			]
+		},
+		"viewsWelcome": [
+			{
+				"view": "threews3d.models",
+				"contents": "No .glb or .gltf files here yet.\n\nGenerate one from a text prompt on the free three.ws lane. No key, no account.\n[Generate a 3D model](command:threews3d.generateModel)\n[Generate an avatar](command:threews3d.generateAvatar)\n\nAlready have a model on a URL?\n[Preview a model URL](command:threews3d.previewUrl)\n\nEmbedding one? Open an HTML file with an <agent-3d> tag: the extension checks it and completes its attributes."
+			}
+		],
+		"commands": [
+			{
+				"command": "threews3d.generateModel",
+				"title": "3D: Generate a Model from Text",
+				"icon": "$(sparkle)"
+			},
+			{
+				"command": "threews3d.generateAvatar",
+				"title": "3D: Generate an Avatar from Text",
+				"icon": "$(person)"
+			},
+			{
+				"command": "threews3d.rigModel",
+				"title": "3D: Rig a Model for Animation"
+			},
+			{
+				"command": "threews3d.refineModel",
+				"title": "3D: Refine this Model by Describing a Change",
+				"icon": "$(wand)"
+			},
+			{
+				"command": "threews3d.animate",
+				"title": "3D: Try a Library Animation on this Model",
+				"icon": "$(play)"
+			},
+			{
+				"command": "threews3d.animateFromText",
+				"title": "3D: Animate this Model from a Text Prompt"
+			},
+			{
+				"command": "threews3d.optimizeModel",
+				"title": "3D: Optimize a Copy for the Web",
+				"icon": "$(zap)"
+			},
+			{
+				"command": "threews3d.compareWithHead",
+				"title": "3D: Compare with the Committed Version",
+				"icon": "$(git-compare)"
+			},
+			{
+				"command": "threews3d.checkQuality",
+				"title": "3D: Check Quality with a Vision Model"
+			},
+			{
+				"command": "threews3d.exportTurntable",
+				"title": "3D: Save a Turntable GIF of the Model"
+			},
+			{
+				"command": "threews3d.toggleReport",
+				"title": "3D: Toggle the Model Report"
+			},
+			{
+				"command": "threews3d.insertEmbed",
+				"title": "3D: Insert <agent-3d> Embed Snippet"
+			},
+			{
+				"command": "threews3d.previewUrl",
+				"title": "3D: Preview a Model URL"
+			},
+			{
+				"command": "threews3d.openInBrowser",
+				"title": "3D: Open in the three.ws Viewer"
+			},
+			{
+				"command": "threews3d.copyModelUrl",
+				"title": "3D: Copy the Model's three.ws URL"
+			},
+			{
+				"command": "threews3d.saveSnapshot",
+				"title": "3D: Save a PNG Snapshot of the View"
+			},
+			{
+				"command": "threews3d.importGalleryItem",
+				"title": "3D: Import Model into the Workspace",
+				"icon": "$(cloud-download)"
+			},
+			{
+				"command": "threews3d.previewCreation",
+				"title": "3D: Preview a Gallery Creation"
+			},
+			{
+				"command": "threews3d.refreshModels",
+				"title": "3D: Refresh Workspace Models",
+				"icon": "$(refresh)"
+			},
+			{
+				"command": "threews3d.refreshGallery",
+				"title": "3D: Refresh Forge Gallery",
+				"icon": "$(refresh)"
+			}
+		],
+		"menus": {
+			"view/title": [
+				{
+					"command": "threews3d.generateModel",
+					"when": "view == threews3d.models",
+					"group": "navigation@1"
+				},
+				{
+					"command": "threews3d.refreshModels",
+					"when": "view == threews3d.models",
+					"group": "navigation@2"
+				},
+				{
+					"command": "threews3d.refreshGallery",
+					"when": "view == threews3d.gallery",
+					"group": "navigation@1"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "threews3d.importGalleryItem",
+					"when": "view == threews3d.gallery && viewItem == threews3dGalleryItem",
+					"group": "inline"
+				},
+				{
+					"command": "threews3d.insertEmbed",
+					"when": "view == threews3d.models && viewItem == threews3dModel"
+				},
+				{
+					"command": "threews3d.rigModel",
+					"when": "view == threews3d.models && viewItem == threews3dModel"
+				},
+				{
+					"command": "threews3d.animate",
+					"when": "view == threews3d.models && viewItem == threews3dModel",
+					"group": "threews3d@1"
+				},
+				{
+					"command": "threews3d.refineModel",
+					"when": "view == threews3d.models && viewItem == threews3dModel",
+					"group": "threews3d@2"
+				},
+				{
+					"command": "threews3d.optimizeModel",
+					"when": "view == threews3d.models && viewItem == threews3dModel",
+					"group": "threews3d@3"
+				},
+				{
+					"command": "threews3d.compareWithHead",
+					"when": "view == threews3d.models && viewItem == threews3dModel",
+					"group": "threews3d@4"
+				}
+			],
+			"explorer/context": [
+				{
+					"command": "threews3d.animate",
+					"when": "resourceExtname == .glb || resourceExtname == .gltf",
+					"group": "threews3d@1"
+				},
+				{
+					"command": "threews3d.refineModel",
+					"when": "resourceExtname == .glb",
+					"group": "threews3d@2"
+				},
+				{
+					"command": "threews3d.rigModel",
+					"when": "resourceExtname == .glb",
+					"group": "threews3d@3"
+				},
+				{
+					"command": "threews3d.optimizeModel",
+					"when": "resourceExtname == .glb || resourceExtname == .gltf",
+					"group": "threews3d@4"
+				},
+				{
+					"command": "threews3d.compareWithHead",
+					"when": "resourceExtname == .glb || resourceExtname == .gltf",
+					"group": "threews3d@5"
+				},
+				{
+					"command": "threews3d.insertEmbed",
+					"when": "resourceExtname == .glb",
+					"group": "threews3d@6"
+				}
+			],
+			"commandPalette": [
+				{
+					"command": "threews3d.importGalleryItem",
+					"when": "false"
+				},
+				{
+					"command": "threews3d.previewCreation",
+					"when": "false"
+				},
+				{
+					"command": "threews3d.refreshModels",
+					"when": "false"
+				},
+				{
+					"command": "threews3d.refreshGallery",
+					"when": "false"
+				},
+				{
+					"command": "threews3d.toggleReport",
+					"when": "activeCustomEditorId == threews3d.modelViewer"
+				},
+				{
+					"command": "threews3d.exportTurntable",
+					"when": "activeCustomEditorId == threews3d.modelViewer"
+				},
+				{
+					"command": "threews3d.saveSnapshot",
+					"when": "activeCustomEditorId == threews3d.modelViewer"
+				}
+			]
+		},
+		"configuration": {
+			"title": "three.ws 3D",
+			"properties": {
+				"threews3d.origin": {
+					"type": "string",
+					"default": "https://three.ws",
+					"description": "Origin that serves the studio API (/api/mcp-studio) and the forge gallery."
+				},
+				"threews3d.downloadFolder": {
+					"type": "string",
+					"default": "models",
+					"description": "Workspace-relative folder that generated and imported models are written to."
+				},
+				"threews3d.tier": {
+					"type": "string",
+					"enum": [
+						"draft",
+						"standard",
+						"high"
+					],
+					"default": "draft",
+					"description": "Detail level for text to 3D generation. Higher tiers take longer; all of them are free."
+				},
+				"threews3d.environment": {
+					"type": "string",
+					"enum": [
+						"studio",
+						"neutral",
+						"none"
+					],
+					"default": "studio",
+					"description": "Image-based lighting used to light the model in the viewer."
+				},
+				"threews3d.showGrid": {
+					"type": "boolean",
+					"default": true,
+					"description": "Show the ground grid in the viewer."
+				},
+				"threews3d.autoRotate": {
+					"type": "boolean",
+					"default": false,
+					"description": "Slowly orbit the camera around the model when the viewer opens."
+				},
+				"threews3d.embedChannel": {
+					"type": "string",
+					"default": "pinned",
+					"description": "Version channel used by the inserted <agent-3d> snippet: 'pinned' resolves the current release and adds its SRI hash, or name a channel such as latest, 1, or 1.5."
+				},
+				"threews3d.turntableFrames": {
+					"type": "integer",
+					"default": 36,
+					"minimum": 8,
+					"maximum": 120,
+					"description": "Frames in a turntable GIF (one full orbit). More frames are smoother and larger."
+				},
+				"threews3d.turntableSize": {
+					"type": "integer",
+					"default": 480,
+					"minimum": 128,
+					"maximum": 1024,
+					"description": "Pixel size of a turntable GIF frame (square)."
+				},
+				"threews3d.embedDiagnostics": {
+					"type": "boolean",
+					"default": true,
+					"description": "Check <agent-3d> tags and library script tags in HTML, JSX, Vue, Svelte, Astro, Markdown and PHP files: missing source or size, unpinned or stale library versions, unknown attributes."
+				}
+			}
+		}
+	},
+	"scripts": {
+		"build": "node build.mjs",
+		"watch": "node build.mjs --watch",
+		"test": "node build.mjs && node --test \"test/*.test.mjs\"",
+		"package": "npx --yes @vscode/vsce package --no-dependencies",
+		"publish:marketplace": "npx --yes @vscode/vsce publish --no-dependencies",
+		"publish:openvsx": "npx --yes ovsx publish --no-dependencies",
+		"vscode:prepublish": "node build.mjs --production"
+	},
+	"dependencies": {
+		"@gltf-transform/core": "^4.4.0",
+		"@gltf-transform/extensions": "^4.4.0",
+		"@gltf-transform/functions": "^4.5.0",
+		"gifenc": "^1.0.3",
+		"meshoptimizer": "^1.1.1",
+		"three": "^0.184.0"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.85.0",
+		"esbuild": "^0.28.1"
+	}
+}

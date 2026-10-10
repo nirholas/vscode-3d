@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>vscode-3d: Preview GLB and glTF models inside VS Code, try 2,800 library animatio</title>
+<meta name="description" content="Preview GLB and glTF models inside VS Code, try 2,800 library animations or a text-described motion on any rig and bake the result, generate and refine models from a prompt on the free three.ws lane, optimize for the web, diff a model against git, AI quality-check a render, and get diagnostics and...">
+<link rel="canonical" href="https://nirholas.github.io/vscode-3d/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="three.ws">
+<meta property="og:title" content="vscode-3d">
+<meta property="og:description" content="Preview GLB and glTF models inside VS Code, try 2,800 library animations or a text-described motion on any rig and bake the result, generate and refine models from a prompt on the free three.ws lane, optimize for the web, diff a model against git, AI quality-check a render, and get diagnostics and...">
+<meta property="og:url" content="https://nirholas.github.io/vscode-3d/">
+<meta property="og:image" content="https://nirholas.github.io/vscode-3d/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="vscode-3d">
+<meta name="twitter:description" content="Preview GLB and glTF models inside VS Code, try 2,800 library animations or a text-described motion on any rig and bake the result, generate and refine models from a prompt on the free three.ws lane, optimize for the web, diff a model against git, AI quality-check a render, and get diagnostics and...">
+<meta name="twitter:image" content="https://nirholas.github.io/vscode-3d/og.png">
+<meta name="keywords" content="3d, glb, gltf, three.js, model viewer, avatar, text to 3d, preview, three, webgl, animation, retarget, mixamo, optimize, meshopt, diff, embed, ai-agents, three.ws">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="icon" href="https://three.ws/three-ws-mcp-icon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"vscode-3d","description":"Preview GLB and glTF models inside VS Code, try 2,800 library animations or a text-described motion on any rig and bake the result, generate and refine models from a prompt on the free three.ws lane, optimize for the web, diff a model against git, AI quality-check a render, and get diagnostics and...","codeRepository":"https://github.com/nirholas/vscode-3d","programmingLanguage":"JavaScript","license":"https://spdx.org/licenses/Apache-2.0.html","version":"0.2.0","url":"https://nirholas.github.io/vscode-3d/","author":{"@type":"Organization","name":"three.ws","url":"https://three.ws"},"keywords":"3d, glb, gltf, three.js, model viewer, avatar, text to 3d, preview, three, webgl, animation, retarget, mixamo, optimize, meshopt, diff, embed, ai-agents, three.ws"}</script>
+<style>:root{--bg:#fff;--fg:#111418;--mut:#586069;--line:#e3e6ea;--acc:#2563eb;--code:#f4f6f8;--card:#fafbfc}
+@media(prefers-color-scheme:dark){:root{--bg:#0b0d10;--fg:#e8eaed;--mut:#9aa3ad;--line:#232830;--acc:#6ea0ff;--code:#14181d;--card:#10141a}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+a{color:var(--acc)}a:focus-visible,button:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:4px}
+header.bar{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar-in{max-width:1100px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{font-weight:700;text-decoration:none;color:var(--fg)}
+.bar nav{margin-left:auto;display:flex;gap:16px;font-size:14px}
+.bar nav a{color:var(--mut);text-decoration:none;transition:color .15s}.bar nav a:hover{color:var(--fg)}
+.hero{max-width:1100px;margin:0 auto;padding:48px 16px 24px}
+.hero h1{font-size:clamp(28px,5vw,44px);line-height:1.15;margin:0 0 12px;letter-spacing:-.02em}
+.hero p{color:var(--mut);max-width:70ch;font-size:18px;margin:0 0 24px}
+.install{display:flex;align-items:center;gap:8px;max-width:620px;background:var(--code);border:1px solid var(--line);border-radius:10px;padding:6px 6px 6px 14px}
+.install code{flex:1;overflow-x:auto;white-space:nowrap;font:14px ui-monospace,SFMono-Regular,Menlo,monospace}
+.install button{border:0;background:var(--acc);color:#fff;border-radius:7px;padding:8px 14px;font:600 13px system-ui;cursor:pointer;transition:transform .12s,opacity .12s}
+.install button:hover{opacity:.9}.install button:active{transform:scale(.96)}
+.cta{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.cta a{padding:9px 16px;border:1px solid var(--line);border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;color:var(--fg);transition:border-color .15s,transform .15s}
+.cta a:hover{border-color:var(--acc);transform:translateY(-1px)}.cta a.pri{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.layout{max-width:1100px;margin:0 auto;padding:8px 16px 64px;display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:40px}
+@media(max-width:860px){.layout{grid-template-columns:minmax(0,1fr)}.toc{display:none}}
+.toc{position:sticky;top:76px;align-self:start;font-size:14px;border-left:1px solid var(--line);padding-left:16px}
+.toc p{margin:0 0 8px;font-weight:700;color:var(--mut);text-transform:uppercase;font-size:12px;letter-spacing:.06em}
+.toc ul{list-style:none;margin:0;padding:0}.toc li{margin:6px 0}.toc a{color:var(--mut);text-decoration:none}.toc a:hover{color:var(--fg)}
+main{min-width:0;overflow-wrap:anywhere}main pre code{overflow-wrap:normal}main img{max-width:100%;height:auto}
+main h2{margin-top:2.2em;padding-bottom:.3em;border-bottom:1px solid var(--line)}
+.anchor{margin-left:-1.1em;padding-right:.4em;text-decoration:none;opacity:0;color:var(--mut)}h2:hover .anchor,h3:hover .anchor,h4:hover .anchor{opacity:1}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:14px;line-height:1.5}
+code{font:0.9em ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);padding:.15em .35em;border-radius:5px}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%}th,td{border:1px solid var(--line);padding:8px 12px;text-align:left}th{background:var(--card)}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:4px solid var(--line);color:var(--mut)}
+footer{border-top:1px solid var(--line);color:var(--mut);font-size:14px}
+.foot-in{max-width:1100px;margin:0 auto;padding:24px 16px;display:flex;gap:16px;flex-wrap:wrap}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}</style>
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+<a class="brand" href="https://nirholas.github.io/vscode-3d/">vscode-3d</a>
+<nav aria-label="Project links"><a href="https://github.com/nirholas/vscode-3d">GitHub</a><a href="https://www.npmjs.com/package/vscode-3d">npm</a><a href="llms.txt">llms.txt</a><a href="https://three.ws">three.ws</a></nav>
+</div></header>
+<section class="hero">
+<h1>vscode-3d</h1>
+<p>Preview GLB and glTF models inside VS Code, try 2,800 library animations or a text-described motion on any rig and bake the result, generate and refine models from a prompt on the free three.ws lane, optimize for the web, diff a model against git, AI quality-check a render, and get diagnostics and...</p>
+<div class="install" role="group" aria-label="Install command"><code>npm install vscode-3d</code><button type="button" data-copy="npm install vscode-3d">Copy</button></div>
+<div class="cta"><a class="pri" href="https://github.com/nirholas/vscode-3d">View on GitHub</a><a href="https://github.com/nirholas/vscode-3d/stargazers">Star the repo</a></div>
+</section>
+<div class="layout">
+<main id="content"><h1>three.ws 3D for VS Code</h1>
+<p>Preview, animate, refine, optimize, and review 3D models where you already are.
+This extension makes <code>.glb</code> and <code>.gltf</code> files first-class in VS Code: double-click
+one and it renders, animates, and reports on itself in an editor tab, next to the
+code that ships it. Try any of 2,800 library animations on its rig and bake the
+one you like into the file. Describe a change and get a new version. Optimize a
+copy for the web without uploading it. Diff it against the committed version
+before you open the pull request. And when you embed it, the editor checks the
+<code>&lt;agent-3d&gt;</code> tag the way it checks your TypeScript.</p>
+<p>Nothing here is a preview stub. The viewer is three.js with the same lighting,
+decoders and retargeter the three.ws site uses, the report and the diff are the
+platform&#39;s own inspectors, and generation calls the live studio API.</p>
+<h2 id="features"><a class="anchor" href="#features" aria-label="Link to this section">#</a>Features</h2>
+<h3 id="see-it"><a class="anchor" href="#see-it" aria-label="Link to this section">#</a>See it</h3>
+<ul>
+<li><strong>A real viewer, as the default editor for model files.</strong> Orbit, pan, and zoom
+with the mouse. Animation clips get a picker, a play/pause button, and a scrub
+bar. Toggle a wireframe, the skeleton, the ground grid, or a slow auto-orbit.
+Draco, KTX2/Basis, and meshopt assets decode locally from decoders shipped
+inside the extension, so a compressed three.ws avatar renders offline.</li>
+<li><strong>Model report.</strong> Triangles, vertices, meshes, materials, texture count and
+weight, animations, rig size, and glTF extensions, plus optimization notes.
+It is the same inspector that powers the three.ws <code>/validation</code> page, running
+in the extension host: your model is never uploaded anywhere to be measured.
+The status bar shows triangles, size, bones and clips while a model is open.</li>
+<li><strong>Snapshots and turntables.</strong> <code>Snapshot</code> writes the current view as a PNG
+beside the model. <code>Turntable</code> writes a looping GIF of a full orbit, with the
+playing animation stepped in sync, for a README or a pull request.</li>
+</ul>
+<h3 id="move-it"><a class="anchor" href="#move-it" aria-label="Link to this section">#</a>Move it</h3>
+<ul>
+<li><strong>Try a library animation.</strong> <code>Animate</code> in the toolbar (or <code>3D: Try a Library Animation</code>) searches the three.ws motion library, 2,800 clips baked on the
+canonical humanoid skeleton, and plays your pick on the open model. The clip is
+retargeted onto the model&#39;s own bones in the viewer by the platform&#39;s
+retargeter, which knows Mixamo, Avaturn, VRM/VRoid, Unreal, Daz, MakeHuman,
+Blender <code>.L/.R</code> and simple <code>shoulderL</code> conventions. If a rig cannot be driven,
+the message says how many bones matched and offers to rig it.</li>
+<li><strong>Bake it in.</strong> <code>Bake clip</code> writes the retargeted clip into a copy of the file
+as real glTF animation samplers and channels, so it plays in Unity, Unreal,
+Blender, <code>&lt;model-viewer&gt;</code>, or <code>&lt;agent-3d&gt;</code>. Meshopt-compressed models are
+re-encoded, not inflated.</li>
+<li><strong>Animate from words.</strong> <code>3D: Animate this Model from a Text Prompt</code> sends
+&quot;waving confidently with the right hand&quot; to the text-to-motion worker on the
+three.ws GPU fleet and retargets the sampled clip the same way.</li>
+</ul>
+<h3 id="make-it"><a class="anchor" href="#make-it" aria-label="Link to this section">#</a>Make it</h3>
+<ul>
+<li><strong>Text to 3D.</strong> <code>3D: Generate a Model from Text</code> for an object or prop,
+<code>3D: Generate an Avatar from Text</code> for a character. Both run on the free lane
+(no key, no account), save the GLB into your workspace, and open it.</li>
+<li><strong>Refine by describing a change.</strong> <code>Refine</code> (or <code>3D: Refine this Model</code>) takes
+&quot;make it metallic&quot; or &quot;bigger helmet&quot; and generates a new version anchored to
+the current one, carrying its form and materials forward. Versions save as
+<code>name-v2.glb</code>, <code>name-v3.glb</code>, and the lineage is remembered, so refining a
+refinement extends the same history.</li>
+<li><strong>Auto-rigging.</strong> <code>3D: Rig a Model for Animation</code> sends a static model to the
+three.ws rigger and brings back one with a humanoid skeleton and skin weights.</li>
+<li><strong>AI quality check.</strong> <code>Check quality</code> renders the current view and asks a
+vision model to score realism and completeness against the subject, list the
+defects it can see, and suggest a fix. One click feeds that fix into a
+refinement. Because the render is what travels, it works on a model that has
+never left your disk.</li>
+</ul>
+<h3 id="ship-it"><a class="anchor" href="#ship-it" aria-label="Link to this section">#</a>Ship it</h3>
+<ul>
+<li><strong>Optimize for the web, locally.</strong> <code>3D: Optimize a Copy for the Web</code> runs the
+asset pipeline&#39;s passes in the extension host (dedup, prune, weld, resample,
+meshopt; the Compact preset adds vertex quantization) and writes <code>name.web.glb</code>
+with a before/after summary. Textures are left as they are.</li>
+<li><strong>Compare with the committed version.</strong> <code>3D: Compare with the Committed Version</code> reads the file at <code>HEAD</code> straight out of git, opens it in a second
+viewer beside yours, and writes a structural diff as Markdown: what changed in
+geometry, materials, textures, skeleton and animations, with a severity that
+says whether a consumer of the model breaks. The same comparison is offered
+after a refinement or an optimization.</li>
+<li><strong><code>&lt;agent-3d&gt;</code> embeds, checked as you type.</strong> In HTML, JSX/TSX, Vue, Svelte,
+Astro, Markdown and PHP files the extension reports an embed with no source
+(error), no size (warning: it collapses to 0×0), a library <code>&lt;script&gt;</code> on the
+<code>latest</code> channel (warning), a pinned script with no <code>integrity</code> (hint) or a
+stale one (error: the browser refuses the file), unknown or misspelt
+attributes, and invalid enum values. Every finding has a quick fix, including
+&quot;pin to the current release with its hash&quot;. Hover any attribute for its docs,
+get completions for attribute names and values, and use the CodeLens to
+preview the referenced model in the viewer.</li>
+<li><strong>Embed snippet, correctly pinned.</strong> <code>3D: Insert &lt;agent-3d&gt; Embed Snippet</code>
+resolves the current library version and its subresource-integrity hash from
+the live release manifest and writes a ready-to-paste snippet at your cursor.</li>
+<li><strong>Forge gallery.</strong> Browse recent public three.ws creations in the sidebar,
+preview any of them in the viewer, and import the ones you want.</li>
+</ul>
+<h2 id="install"><a class="anchor" href="#install" aria-label="Link to this section">#</a>Install</h2>
+<p>Search for <strong>three.ws 3D</strong> in the Extensions view, or install it by ID:</p>
+<pre><code class="language-bash">code --install-extension threews.vscode-3d
+</code></pre>
+<p>It is listed on the
+<a href="https://marketplace.visualstudio.com/items?itemName=threews.vscode-3d">Visual Studio Marketplace</a>
+and, for VSCodium, Cursor, Windsurf and other Open VSX editors, on
+<a href="https://open-vsx.org/extension/threews/vscode-3d">Open VSX</a>.</p>
+<p>To build it from source instead:</p>
+<pre><code class="language-bash">git clone https://github.com/nirholas/three.ws.git
+cd three.ws/packages/vscode-3d
+npm install
+npm run package
+code --install-extension vscode-3d-0.2.0.vsix
+</code></pre>
+<p>For development, open <code>packages/vscode-3d</code> in VS Code and press <kbd>F5</kbd> to
+launch an Extension Development Host. Maintainers: releasing a new version is
+covered in <a href="https://github.com/nirholas/three.ws/blob/main/packages/vscode-3d/PUBLISHING.md">PUBLISHING.md</a>.</p>
+<h2 id="use-it"><a class="anchor" href="#use-it" aria-label="Link to this section">#</a>Use it</h2>
+<p>Open any <code>.glb</code> or <code>.gltf</code> in the explorer. That is the whole setup: the viewer
+is the default editor for those files, and the <strong>three.ws 3D</strong> icon in the
+activity bar lists every model in the workspace alongside the public gallery.</p>
+<p>A typical loop: <strong>3D: Generate an Avatar from Text</strong>, describe a character, and
+the GLB lands in <code>models/</code> and opens. Press <strong>Animate</strong>, type <code>wave</code>, and watch
+it wave. Press <strong>Bake clip</strong> to save <code>astronaut-waving.glb</code>. Press <strong>Refine</strong>,
+type <code>add a glowing visor</code>, and get <code>astronaut-v2.glb</code>. Press <strong>Optimize</strong> for
+<code>astronaut-v2.web.glb</code>, then <strong>Insert embed</strong> to put it on a page:</p>
+<pre><code class="language-html">&lt;script
+  type=&quot;module&quot;
+  src=&quot;https://three.ws/agent-3d/1.5.2/agent-3d.js&quot;
+  integrity=&quot;sha384-…&quot;
+  crossorigin=&quot;anonymous&quot;
+&gt;&lt;/script&gt;
+
+&lt;agent-3d
+  body=&quot;https://three.ws/cdn/creations/…/mesh.glb&quot;
+  style=&quot;width: 400px; height: 500px; display: block;&quot;
+&gt;&lt;/agent-3d&gt;
+</code></pre>
+<p>If that snippet later drifts (someone swaps the URL to <code>latest</code>, or the hash goes
+stale after a release), the editor underlines it and the quick fix repairs it.</p>
+<h2 id="commands"><a class="anchor" href="#commands" aria-label="Link to this section">#</a>Commands</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>3D: Generate a Model from Text</code></td>
+<td>Free text to 3D. Saves the GLB and opens it.</td>
+</tr>
+<tr>
+<td><code>3D: Generate an Avatar from Text</code></td>
+<td>Same, tuned for characters.</td>
+</tr>
+<tr>
+<td><code>3D: Refine this Model by Describing a Change</code></td>
+<td>New version anchored to this one; lineage kept.</td>
+</tr>
+<tr>
+<td><code>3D: Try a Library Animation on this Model</code></td>
+<td>Search 2,800 clips; retarget and play in the viewer.</td>
+</tr>
+<tr>
+<td><code>3D: Animate this Model from a Text Prompt</code></td>
+<td>Text to motion on the GPU fleet, retargeted onto the rig.</td>
+</tr>
+<tr>
+<td><code>3D: Rig a Model for Animation</code></td>
+<td>Adds a humanoid skeleton to a static model.</td>
+</tr>
+<tr>
+<td><code>3D: Optimize a Copy for the Web</code></td>
+<td>Local dedup, weld, resample, meshopt (and quantize).</td>
+</tr>
+<tr>
+<td><code>3D: Compare with the Committed Version</code></td>
+<td>Structural diff against <code>HEAD</code>, side-by-side viewers.</td>
+</tr>
+<tr>
+<td><code>3D: Check Quality with a Vision Model</code></td>
+<td>Realism and completeness score, defects, fix hint.</td>
+</tr>
+<tr>
+<td><code>3D: Insert &lt;agent-3d&gt; Embed Snippet</code></td>
+<td>Writes a pinned, SRI-checked embed at the cursor.</td>
+</tr>
+<tr>
+<td><code>3D: Preview a Model URL</code></td>
+<td>Opens any hosted <code>.glb</code> in the viewer.</td>
+</tr>
+<tr>
+<td><code>3D: Open in the three.ws Viewer</code></td>
+<td>Opens the model in the browser viewer.</td>
+</tr>
+<tr>
+<td><code>3D: Copy the Model&#39;s three.ws URL</code></td>
+<td>Copies the hosted URL to the clipboard.</td>
+</tr>
+<tr>
+<td><code>3D: Save a PNG Snapshot of the View</code></td>
+<td>Writes the current view beside the model.</td>
+</tr>
+<tr>
+<td><code>3D: Save a Turntable GIF of the Model</code></td>
+<td>Writes a looping orbit beside the model.</td>
+</tr>
+<tr>
+<td><code>3D: Toggle the Model Report</code></td>
+<td>Shows or hides the report panel.</td>
+</tr>
+</tbody></table>
+<h2 id="settings"><a class="anchor" href="#settings" aria-label="Link to this section">#</a>Settings</h2>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Default</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>threews3d.origin</code></td>
+<td><code>https://three.ws</code></td>
+<td>Host of the studio API, the gallery, the motion library, and the quality check.</td>
+</tr>
+<tr>
+<td><code>threews3d.downloadFolder</code></td>
+<td><code>models</code></td>
+<td>Workspace folder generated models are saved into.</td>
+</tr>
+<tr>
+<td><code>threews3d.tier</code></td>
+<td><code>draft</code></td>
+<td>Detail level for text to 3D: <code>draft</code>, <code>standard</code>, or <code>high</code>. All free.</td>
+</tr>
+<tr>
+<td><code>threews3d.environment</code></td>
+<td><code>studio</code></td>
+<td>Image-based lighting: <code>studio</code>, <code>neutral</code>, or <code>none</code>.</td>
+</tr>
+<tr>
+<td><code>threews3d.showGrid</code></td>
+<td><code>true</code></td>
+<td>Show the ground grid when a model opens.</td>
+</tr>
+<tr>
+<td><code>threews3d.autoRotate</code></td>
+<td><code>false</code></td>
+<td>Orbit the camera automatically when a model opens.</td>
+</tr>
+<tr>
+<td><code>threews3d.embedChannel</code></td>
+<td><code>pinned</code></td>
+<td><code>pinned</code> resolves the current release plus its SRI hash; or name a channel such as <code>latest</code>, <code>1</code>, or <code>1.5</code>.</td>
+</tr>
+<tr>
+<td><code>threews3d.turntableFrames</code></td>
+<td><code>36</code></td>
+<td>Frames in a turntable GIF (one full orbit).</td>
+</tr>
+<tr>
+<td><code>threews3d.turntableSize</code></td>
+<td><code>480</code></td>
+<td>Pixel size of each square turntable frame.</td>
+</tr>
+<tr>
+<td><code>threews3d.embedDiagnostics</code></td>
+<td><code>true</code></td>
+<td>Check <code>&lt;agent-3d&gt;</code> and library <code>&lt;script&gt;</code> tags in supported files.</td>
+</tr>
+</tbody></table>
+<h2 id="how-it-works"><a class="anchor" href="#how-it-works" aria-label="Link to this section">#</a>How it works</h2>
+<p>Generation, refinement, rigging, the library, and the gallery go through public,
+unauthenticated three.ws endpoints:</p>
+<ul>
+<li><code>POST /api/mcp-studio</code> is the JSON-RPC studio. The extension calls the
+<code>forge_free</code>, <code>text_to_avatar</code>, <code>rig_mesh</code>, <code>refine_model</code>, and <code>check_job</code>
+tools. No key, no account, no payment: the platform&#39;s server-side keys cover
+provider cost.</li>
+<li><code>GET /api/animations/library</code> lists the motion library; each clip is fetched
+from the CDN as a three.js <code>AnimationClip</code> JSON when you pick it.</li>
+<li><code>POST /api/forge-motion</code> starts a text-to-motion job; <code>GET ?job=</code> polls it.</li>
+<li><code>POST /api/forge-quality-check</code> scores a render you send as a PNG.</li>
+<li><code>GET /api/forge-gallery</code> is the public feed of recent creations.</li>
+<li><code>GET /agent-3d/versions.json</code> is the library release manifest the embed
+snippet and the embed diagnostics pin against.</li>
+</ul>
+<p>Everything else is local. The viewer runs three.js inside a webview whose content
+security policy allows exactly one nonce-gated script and no remote origin, so
+the only things that cross the network while you look at a model are the model
+file and, when you pick one, a clip. Retargeting runs in the webview with the
+platform&#39;s <code>animation-retarget.js</code>; baking, optimization, inspection and the
+structural diff run in the extension host with glTF-Transform. The Draco and
+Basis decoders are copied out of three.js at build time and served from the
+extension, never from a CDN.</p>
+<h2 id="which-model-can-be-embedded-rigged-or-refined"><a class="anchor" href="#which-model-can-be-embedded-rigged-or-refined" aria-label="Link to this section">#</a>Which model can be embedded, rigged, or refined</h2>
+<p>Those three need a URL the browser (or the studio) can fetch. Models this
+extension generated or imported carry their three.ws URL, so the commands just
+work. For a local file that has never been uploaded, the extension asks for the
+https URL where it is hosted rather than handing you a snippet that renders
+nothing. Animating, baking, optimizing, comparing, and the quality check all
+work on a purely local file.</p>
+<h2 id="develop"><a class="anchor" href="#develop" aria-label="Link to this section">#</a>Develop</h2>
+<pre><code class="language-bash">npm run watch   # rebuild the host bundle and the webview on change
+npm test        # builds, then runs the suite
+</code></pre>
+<p><code>npm test</code> activates the bundled extension against a stand-in extension host and
+asserts that every command, view, language provider, and custom editor the
+manifest promises really registers, that the viewer webview is nonce-gated and
+CDN-free, that an HTML file with a broken embed yields the right diagnostics and
+quick fixes, and that a canonical clip retargets onto the committed reference
+avatar and bakes into it. The studio, library, motion, refine, quality, embed,
+optimize, compare and naming modules are unit tested against local HTTP servers
+and real committed GLBs.</p>
+<h2 id="related"><a class="anchor" href="#related" aria-label="Link to this section">#</a>Related</h2>
+<ul>
+<li><a href="https://github.com/nirholas/three.ws/blob/main/docs/vscode.md"><code>docs/vscode.md</code></a> walks through the whole workflow.</li>
+<li><a href="https://github.com/nirholas/three.ws/tree/main/packages/vscode-x402"><code>@three-ws/vscode-x402</code></a> is the sibling extension for paying
+x402 endpoints from the editor.</li>
+<li><a href="https://github.com/nirholas/three.ws/blob/main/docs/embedding.md"><code>docs/embedding.md</code></a> documents every <code>&lt;agent-3d&gt;</code>
+attribute the diagnostics and completions know.</li>
+<li><a href="https://github.com/nirholas/three.ws/tree/main/packages/glb-diff"><code>@three-ws/glb-diff</code></a> is the structural differ behind the
+compare command, also available as a CLI for CI.</li>
+<li><a href="https://github.com/nirholas/three.ws/tree/main/packages/glb-tools"><code>@three-ws/glb-tools</code></a> does inspection and baking from the shell.</li>
+</ul>
+<p>Apache-2.0. Built by <a href="https://three.ws">three.ws</a>.</p>
+</main>
+<nav class="toc" aria-label="On this page"><p>On this page</p><ul><li><a href="#features">Features</a></li><li><a href="#install">Install</a></li><li><a href="#use-it">Use it</a></li><li><a href="#commands">Commands</a></li><li><a href="#settings">Settings</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#which-model-can-be-embedded-rigged-or-refined">Which model can be embedded, rigged, or refined</a></li><li><a href="#develop">Develop</a></li><li><a href="#related">Related</a></li></ul></nav>
+</div>
+<footer><div class="foot-in"><span>Apache-2.0 licensed</span><a href="https://github.com/nirholas/vscode-3d/issues">Issues</a><a href="https://github.com/nirholas/vscode-3d/blob/main/CONTRIBUTING.md">Contributing</a><a href="https://github.com/nirholas/vscode-3d/security/policy">Security</a><a href="https://three.ws">Part of three.ws</a></div></footer>
+<script>document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){
+var t=b.getAttribute('data-copy');var done=function(){var o=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=o},1400)};
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,function(){})}
+else{var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');done()}catch(e){}a.remove()}})});</script>
+</body>
+</html>

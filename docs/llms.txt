@@ -1,0 +1,19 @@
+# vscode-3d
+
+> Preview GLB and glTF models inside VS Code, try 2,800 library animations or a text-described motion on any rig and bake the result, generate and refine models from a prompt on the free three.ws lane, optimize for the web, diff a model against git, AI quality-check a render, and get diagnostics and completions for <agent-3d> embeds. Powered by three.ws.
+
+vscode-3d is a JavaScript library from three.ws. Install: `npm install vscode-3d`.
+
+## Docs
+
+- [README](https://github.com/nirholas/vscode-3d/blob/main/README.md): install, configuration, full reference
+- [Documentation site](https://nirholas.github.io/vscode-3d/): the README as a web page
+- [Full text for LLMs](https://nirholas.github.io/vscode-3d/llms-full.txt): README inlined
+- [AGENTS.md](https://github.com/nirholas/vscode-3d/blob/main/AGENTS.md): guidance for coding agents
+
+## Project
+
+- [Source](https://github.com/nirholas/vscode-3d)
+- [npm](https://www.npmjs.com/package/vscode-3d)
+- [three.ws](https://three.ws): the platform this is part of
+- [Issues](https://github.com/nirholas/vscode-3d/issues)

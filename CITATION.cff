@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: If you use this software, please cite it as below.
+title: "vscode-3d"
+abstract: "Preview GLB and glTF models inside VS Code, try 2,800 library animations or a text-described motion on any rig and bake the result, generate and refine models from a prompt on the free three.ws lane, optimize for the web, diff a model against git, AI quality-check a render, and get diagnostics and completions for <agent-3d> embeds. Powered by three.ws."
+version: 0.2.0
+license: Apache-2.0
+repository-code: "https://github.com/nirholas/vscode-3d"
+url: "https://three.ws"
+authors:
+  - name: three.ws
+    website: "https://three.ws"
